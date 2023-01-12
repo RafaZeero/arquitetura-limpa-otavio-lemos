@@ -1,24 +1,29 @@
-import { isEmail, isLocalPartValid } from './email'
+import { isEmailValid, isEmailWithinMaxSize, isLocalPartValid } from './email'
 
 describe('Email validation', () => {
   test('should not accept null strings', () => {
     const email = null
-    expect(isEmail(email)).toBeFalsy()
+    expect(isEmailValid(email)).toBeFalsy()
   })
 
   test('should not accept undefined strings', () => {
     const email = undefined
-    expect(isEmail(email)).toBeFalsy()
+    expect(isEmailValid(email)).toBeFalsy()
   })
 
   test('should not accept empty strings', () => {
     const email = ''
-    expect(isEmail(email)).toBeFalsy()
+    expect(isEmailValid(email)).toBeFalsy()
   })
 
   test('should accept valid email', () => {
     const email = 'user@mail.co'
-    expect(isEmail(email)).toBeTruthy()
+    expect(isEmailValid(email)).toBeTruthy()
+  })
+
+  test('should not accept email larger than 320 chars', () => {
+    const email = 'u'.repeat(64).concat('@').concat('d'.repeat(256))
+    expect(isEmailWithinMaxSize(email)).toBeFalsy()
   })
 
   test('should not accept local part larger than 64 chars', () => {
