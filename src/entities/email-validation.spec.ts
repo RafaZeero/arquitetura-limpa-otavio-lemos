@@ -31,6 +31,11 @@ describe('Email validation', () => {
     expect(isEmailValid(email)).toBeFalsy()
   })
 
+  test('should not accept local part empty', () => {
+    const email = '@mail.com'
+    expect(isEmailValid(email)).toBeFalsy()
+  })
+
   test('should not accept local part larger than 64 chars', () => {
     const email = 'u'.repeat(65).concat('@mail.com')
     expect(isEmailValid(email)).toBeFalsy()
