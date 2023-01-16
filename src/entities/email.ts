@@ -18,10 +18,14 @@ const isLocalPartWithinMaxSize: IsLocalPartWithinMaxSize = email => !(email.spli
 
 // domain is the segment of email after the '@' symbol
 type IsDomainValid = (email: string) => boolean
-const isDomainValid: IsDomainValid = email => isDomainWithinMinSize(email) && isDomainWithinMaxSize(email)
+const isDomainValid: IsDomainValid = email =>
+  isDomainWithinMinSize(email) && isDomainWithinMaxSize(email) && isDomainPartWithMaxSize(email)
 
 type IsDomainWithinMaxSize = (email: string) => boolean
 const isDomainWithinMaxSize: IsDomainWithinMaxSize = email => !(email.split('@')[1].length > 255)
 
 type IsDomainWithinMinSize = (email: string) => boolean
 const isDomainWithinMinSize: IsDomainWithinMinSize = email => !(email.split('@')[1].length === 0)
+
+type IsDomainPartWithMaxSize = (email: string) => boolean
+const isDomainPartWithMaxSize: IsDomainPartWithMaxSize = email => !(email.split('@')[1].split('.')[0].length > 63)
