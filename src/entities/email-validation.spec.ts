@@ -22,12 +22,12 @@ describe('Email validation', () => {
   })
 
   test('should not accept email larger than 320 chars', () => {
-    const email = 'u'.repeat(64).concat('@').concat('d'.repeat(256))
+    const email = 'u'.repeat(64).concat('@').concat('d'.repeat(127)).concat('.').concat('d'.repeat(128))
     expect(isEmailValid(email)).toBeFalsy()
   })
 
   test('should not accept domain part than 255 chars', () => {
-    const email = 'email@'.concat('d'.repeat(256))
+    const email = 'email@'.concat('d'.repeat(127)).concat('.').concat('d'.repeat(128))
     expect(isEmailValid(email)).toBeFalsy()
   })
 
