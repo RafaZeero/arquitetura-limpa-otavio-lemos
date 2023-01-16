@@ -50,4 +50,9 @@ describe('Email validation', () => {
     const email = 'email@'.concat('d'.repeat(64)).concat('.com')
     expect(isEmailValid(email)).toBeFalsy()
   })
+
+  test('should not accept local part with invalid char', () => {
+    const email = 'e mail@mail.com'
+    expect(isEmailValid(email)).toBeFalsy()
+  })
 })
