@@ -1,7 +1,16 @@
 type IsEmailValid = (email: string) => boolean
 export const isEmailValid: IsEmailValid = email => {
-  return Boolean(email) && isLocalPartValid(email) && isDomainValid(email) && isEmailWithinMaxSize(email)
+  return (
+    Boolean(email) &&
+    isEmailWithInvalidChars(email) &&
+    isLocalPartValid(email) &&
+    isDomainValid(email) &&
+    isEmailWithinMaxSize(email)
+  )
 }
+
+const emailRegex =
+  /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
 
 type IsEmailWithinMaxSize = (email: string) => boolean
 const isEmailWithinMaxSize: IsEmailWithinMaxSize = email => !(email.length > 320)
@@ -29,3 +38,6 @@ const isDomainWithinMinSize: IsDomainWithinMinSize = email => !(email.split('@')
 
 type IsDomainPartWithMaxSize = (email: string) => boolean
 const isDomainPartWithMaxSize: IsDomainPartWithMaxSize = email => !(email.split('@')[1].split('.')[0].length > 63)
+
+type IsEmailWithInvalidChars = (email: string) => boolean
+const isEmailWithInvalidChars: IsEmailWithInvalidChars = email => emailRegex.test(email)
