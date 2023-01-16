@@ -26,6 +26,16 @@ describe('Email validation', () => {
     expect(isEmailValid(email)).toBeFalsy()
   })
 
+  test('should not accept empty local part', () => {
+    const email = '@mail.com'
+    expect(isEmailValid(email)).toBeFalsy()
+  })
+
+  test('should not accept local part larger than 64 chars', () => {
+    const email = 'u'.repeat(65).concat('@mail.com')
+    expect(isEmailValid(email)).toBeFalsy()
+  })
+
   test('should not accept domain part than 255 chars', () => {
     const email = 'email@'.concat('d'.repeat(127)).concat('.').concat('d'.repeat(128))
     expect(isEmailValid(email)).toBeFalsy()
@@ -36,13 +46,8 @@ describe('Email validation', () => {
     expect(isEmailValid(email)).toBeFalsy()
   })
 
-  test('should not accept empty local part', () => {
-    const email = '@mail.com'
-    expect(isEmailValid(email)).toBeFalsy()
-  })
-
-  test('should not accept local part larger than 64 chars', () => {
-    const email = 'u'.repeat(65).concat('@mail.com')
+  test('should not accept empty domain with a part larger than 63 chars', () => {
+    const email = 'email@'.concat('d'.repeat(64)).concat('.com')
     expect(isEmailValid(email)).toBeFalsy()
   })
 })
