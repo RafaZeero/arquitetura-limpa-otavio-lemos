@@ -1,3 +1,8 @@
+import * as E from 'fp-ts/Either'
+import { Email } from './email-data'
+import { invalidEmailError, InvalidEmailError } from './errors/invalid-email-error'
+
+/* Email validation */
 type IsEmailValid = (email: string) => boolean
 export const isEmailValid: IsEmailValid = email => {
   return (
@@ -41,3 +46,7 @@ const isDomainPartWithMaxSize: IsDomainPartWithMaxSize = email => !(email.split(
 
 type IsEmailWithInvalidChars = (email: string) => boolean
 const isEmailWithInvalidChars: IsEmailWithInvalidChars = email => emailRegex.test(email)
+
+/* Email Creation */
+type CreateEmail = (email: string) => E.Either<InvalidEmailError, Email>
+export const createEmail: CreateEmail = email => (isEmailValid(email) ? E.right(email) : E.left(invalidEmailError()))
