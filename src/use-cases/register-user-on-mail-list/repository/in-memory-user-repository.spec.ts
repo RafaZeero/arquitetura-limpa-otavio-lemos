@@ -1,4 +1,4 @@
-import { UserData } from '../user-data'
+import { UserData } from '../../../entities/user-data'
 import { add, findAllUsers, findUserByEmail, _repository } from './in-memory-user-repository'
 
 describe('In Memory User repository', () => {

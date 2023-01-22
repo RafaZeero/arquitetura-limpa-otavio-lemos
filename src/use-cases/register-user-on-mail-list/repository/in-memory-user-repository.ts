@@ -1,5 +1,5 @@
 import * as User from '../../ports/user-repository'
-import { UserData } from '../user-data'
+import { UserData } from '../../../entities/user-data'
 
 export const _repository: UserData[] = []
 
