@@ -49,4 +49,4 @@ const isEmailWithInvalidChars: IsEmailWithInvalidChars = email => emailRegex.tes
 
 /* Email Creation */
 type CreateEmail = (email: string) => E.Either<InvalidEmailError, Email>
-export const createEmail: CreateEmail = email => (isEmailValid(email) ? E.right(email) : E.left(invalidEmailError()))
+export const createEmail: CreateEmail = email => (isEmailValid(email) ? E.right(email) : E.left(invalidEmailError))
