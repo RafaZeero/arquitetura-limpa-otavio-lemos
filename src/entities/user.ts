@@ -10,6 +10,8 @@ export const createUser: CreateUser = user => {
   const emailOrError = createEmail(user.email)
 
   if (E.isLeft(emailOrError)) {
-    return E.left(invalidEmailError())
+    return E.left(invalidEmailError)
   }
+
+  return E.right(emailOrError)
 }
