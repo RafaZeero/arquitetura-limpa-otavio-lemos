@@ -1,4 +1,4 @@
-import { UserData } from '../../entities/user-data'
+import { UserData } from '../../entities/user-data';
 
 export type Add = (user: UserData) => Promise<void>;
 export type FindUserByEmail = (email: string) => Promise<UserData>;

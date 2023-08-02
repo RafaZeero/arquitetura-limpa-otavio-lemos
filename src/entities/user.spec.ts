@@ -1,6 +1,6 @@
 import { createUser } from './user';
 import * as E from 'fp-ts/lib/Either';
-import { invalidEmailError } from './errors/invalid-email-error';
+import { invalidUserError } from './errors/invalid-email-error';
 import { pipe } from 'fp-ts/lib/function';
 
 describe('User domain entity', () => {
@@ -11,16 +11,15 @@ describe('User domain entity', () => {
       email: invalidEmail
     };
     const error = createUser(user);
-    expect(error).toEqual(E.left(invalidEmailError()));
+    expect(error).toEqual(E.left(invalidUserError.email()));
   });
 
   test('should not create user with invalid name (too few characters', async () => {
-    const errorText = 'Invalid email';
     const invalidName = 'R      ';
     const error = createUser({ name: invalidName, email: 'valid@mail.com' });
     return pipe(
       error,
-      E.mapLeft(error => expect(error).toEqual(new Error(errorText)))
+      E.mapLeft(error => expect(error).toEqual(invalidUserError.name()))
     );
   });
 });

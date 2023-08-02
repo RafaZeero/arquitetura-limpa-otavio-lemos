@@ -1,3 +1,6 @@
-export type InvalidEmailError = Error;
+export type InvalidUserError = Error;
 
-export const invalidEmailError = () => new Error('Invalid email');
+export const invalidUserError = {
+  email: () => new Error('Invalid email'),
+  name: () => new Error('Invalid name')
+};
