@@ -1,17 +1,15 @@
-import * as E from 'fp-ts/Either'
-import { createEmail } from './email'
-import { invalidEmailError, InvalidEmailError } from './errors/invalid-email-error'
-import { UserData } from './user-data'
+import * as E from 'fp-ts/Either';
+import { createEmail } from './email';
+import { InvalidEmailError } from './errors/invalid-email-error';
+import { UserData } from './user-data';
+import { pipe } from 'fp-ts/lib/function';
 
-type User = UserData
+type User = UserData;
 
-type CreateUser = (user: User) => E.Either<InvalidEmailError, User>
+type CreateUser = (user: User) => E.Either<InvalidEmailError, User>;
 export const createUser: CreateUser = user => {
-  const emailOrError = createEmail(user.email)
-
-  if (E.isLeft(emailOrError)) {
-    return E.left(invalidEmailError)
-  }
-
-  return E.right(emailOrError)
-}
+  return pipe(
+    createEmail(user.email),
+    E.map((email): User => ({ email, name: user.name }))
+  );
+};
