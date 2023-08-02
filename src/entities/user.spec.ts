@@ -33,4 +33,15 @@ describe('User domain entity', () => {
       E.mapLeft(error => expect(error).toEqual(invalidUserError.name()))
     );
   });
+
+  test('should create user with valid data', async () => {
+    const validName = 'rafa';
+    const validEmail = 'rafa@zeero.com';
+    const userTest = { name: validName, email: validEmail };
+    const success = createUser(userTest);
+    return pipe(
+      success,
+      E.map(user => expect(user).toEqual(userTest))
+    );
+  });
 });
